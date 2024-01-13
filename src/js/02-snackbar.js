@@ -26,16 +26,19 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
       promise.then(
-        delay => showSnackbar('Success', `✅ Fulfilled promise in ${delay}ms`),
-        delay => showSnackbar('Error', `❌ Rejected promise in ${delay}ms`)
+        delay => showSnackbar('Success', `✅ Fulfilled promise in ${delay}ms`, '#59A10D'),
+        delay => showSnackbar('Error', `❌ Rejected promise in ${delay}ms`, '#EF4040')
       );
     });
   }
 
-  function showSnackbar(title, message) {
-    iziToast.success({
+  function showSnackbar(title, message, backgroundColor) {
+    const toastOptions = {
       title: title,
       message: message,
-    });
+      backgroundColor: backgroundColor, 
+    };
+
+    iziToast.show(toastOptions);
   }
 });

@@ -14,27 +14,28 @@
     <title>The snackbar</title>
   </head>
   <body>
-    <div></div>
-    <form class="form">
-      <label>
-        Delay (ms)
-        <input type="number" name="delay" required />
-      </label>
-
-      <fieldset>
-        <legend>State</legend>
-        <label>
-          <input type="radio" name="state" value="fulfilled" required />
-          Fulfilled
+    <div class="container">
+      <form class="form">
+        <label class="form-item">
+          Delay (ms)
+          <input class="form-input" type="number" name="delay" required />
         </label>
-        <label>
-          <input type="radio" name="state" value="rejected" required />
-          Rejected
-        </label>
-      </fieldset>
 
-      <button type="submit">Create notification</button>
-    </form>
+        <fieldset class="field-area">
+          <legend>State</legend>
+          <label>
+            <input type="radio" name="state" value="fulfilled" required />
+            Fulfilled
+          </label>
+          <label>
+            <input type="radio" name="state" value="rejected" required />
+            Rejected
+          </label>
+        </fieldset>
+
+        <button class="field-btn" type="submit">Create notification</button>
+      </form>
+    </div>
     <a class="return-link" href="./index.html">Press to go back</a>
     <script type="module" src="./js/02-snackbar.js"></script>
   </body>

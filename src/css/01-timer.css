@@ -12,7 +12,6 @@
   justify-content: center;
   align-items: center;
   column-gap: 28px;
-  margin-bottom: 40px;
 }
 
 .field {
@@ -67,6 +66,7 @@
   font-weight: 600;
   letter-spacing: -0.04em;
   text-transform: uppercase;
+  margin-top: 40px;
 }
 
 .return-link:hover,

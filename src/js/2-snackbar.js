@@ -4,20 +4,14 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
 document.addEventListener('DOMContentLoaded', function () {
-  const snackbarButton = document.querySelector('[data-show-snackbar]');
   const form = document.querySelector('form');
-
-  if (snackbarButton) {
-    snackbarButton.addEventListener('click', function () {
-    });
-  }
 
   if (form) {
     form.addEventListener('submit', function (event) {
       event.preventDefault();
 
       const delay = parseInt(this.elements.delay.value, 10);
-      const state = this.elements.state.value;
+      const state = form.querySelector('input[name="state"]:checked').value;
 
       const promise = new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -36,9 +30,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const toastOptions = {
       title: title,
       message: message,
-      backgroundColor: backgroundColor, 
+      backgroundColor: backgroundColor,
     };
 
-    iziToast.show(toastOptions);
+    if (title === 'Success') {
+      iziToast.success(toastOptions);
+    } else if (title === 'Error') {
+      iziToast.error(toastOptions);
+    }
   }
 });

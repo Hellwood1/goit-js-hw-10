@@ -16,9 +16,7 @@ const options = {
 };
 
 const flatpickrInstance = flatpickr('#datetime-picker', options);
-
-document.querySelector('[data-start]').addEventListener('click', startTimer);
-document.addEventListener('DOMContentLoaded', disableStartButton);
+let timerInterval;
 
 function handleDateSelection(selectedDates) {
   const userSelectedDate = selectedDates[0];
@@ -32,19 +30,15 @@ function handleDateSelection(selectedDates) {
 }
 
 function startTimer() {
+  clearInterval(timerInterval);
   const selectedDate = flatpickrInstance.selectedDates[0];
   const currentTime = Date.now();
   let timeDifference = selectedDate - currentTime;
 
-  const timerInterval = setInterval(updateTimerDisplay, 1000);
+  updateTimerDisplay(timeDifference);
 
-  function updateTimerDisplay() {
-    const { days, hours, minutes, seconds } = convertMs(timeDifference);
-
-    updateElement('[data-days]', days);
-    updateElement('[data-hours]', hours);
-    updateElement('[data-minutes]', minutes);
-    updateElement('[data-seconds]', seconds);
+  timerInterval = setInterval(() => {
+    updateTimerDisplay(timeDifference);
 
     if (timeDifference <= 0) {
       clearInterval(timerInterval);
@@ -52,15 +46,19 @@ function startTimer() {
     }
 
     timeDifference -= 1000;
-  }
+  }, 1000);
 }
 
 function disableStartButton() {
-  updateButtonState(true);
+  if (!document.querySelector('[data-start]').disabled) {
+    updateButtonState(true);
+  }
 }
 
 function enableStartButton() {
-  updateButtonState(false);
+  if (document.querySelector('[data-start]').disabled) {
+    updateButtonState(false);
+  }
 }
 
 function updateButtonState(disabled) {
@@ -103,3 +101,13 @@ function addLeadingZero(value) {
   return value < 10 ? `0${value}` : value;
 }
 
+function updateTimerDisplay(timeDifference) {
+  const { days, hours, minutes, seconds } = convertMs(timeDifference);
+  updateElement('[data-days]', days);
+  updateElement('[data-hours]', hours);
+  updateElement('[data-minutes]', minutes);
+  updateElement('[data-seconds]', seconds);
+}
+
+document.querySelector('[data-start]').addEventListener('click', startTimer);
+document.addEventListener('DOMContentLoaded', disableStartButton);
